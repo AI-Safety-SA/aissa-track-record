@@ -1,0 +1,157 @@
+{
+  "coworking_space": {
+    "title": "Co-working Space",
+    "established": "October 2024",
+    "location": "Innovation City",
+    "capacity": "Up to 6 community members",
+    "regular_bookings": "Wednesday afternoon bookings (fully booked before reading groups)",
+    "access": "Access to media channels for public communication",
+    "event_spaces": "Large event spaces for talks, workshops, and reading groups",
+    "image_description": "Innovation City co-working space",
+    "image_url": null
+  },
+  "website": {
+    "title": "Website",
+    "description": "Built website to house newsletter and enable greater outreach and credibility",
+    "url": "www.aisafetyct.com",
+    "image_description": "AISSA website homepage",
+    "image_url": null
+  },
+  "newsletter": {
+    "title": "Newsletter",
+    "articles_published": 3,
+    "timing": "end of 2024",
+    "mailing_list_size": "~60 people",
+    "platform": "Moved to Substack for better metrics and feedback tracking",
+    "image_description": "Newsletter articles",
+    "image_url": null
+  },
+  "courses": [
+    {
+      "title": "AI Safety Fundamentals Course",
+      "duration": "March to mid-May 2024",
+      "tracks": ["Governance", "Technical Alignment"],
+      "based_on": "BlueDot AISF Course",
+      "applications": {
+        "total": 208,
+        "accepted": 106
+      },
+      "participants": {
+        "technical_track": 39,
+        "governance_track": 92,
+        "total_cohorts": 18,
+        "technical_cohorts": 6,
+        "governance_cohorts": 12,
+        "cohort_size": "5-8 participants each"
+      },
+      "completion": {
+        "technical_completed": 20,
+        "governance_completed": 54,
+        "total_completed": 74
+      },
+      "curriculum_links": {
+        "governance": "https://docs.google.com/document/d/1PK-531ONYFIFFPY_lCDr0WkwFacobaiXsbGtDngHz8w/edit?usp=sharing",
+        "technical": "https://docs.google.com/document/d/1ZwR2rhlQClLwxyzVTnWv_ntwQXFzc057IXePUX2SLKc/edit#heading=h.s5znjvp3l4zi"
+      },
+      "research_projects_presentation": "June 30th",
+      "research_projects": [
+        "The Emerging Ethical Landscape: AI Proliferation and Readiness in Africa",
+        "Impacts on human agency from LLMs",
+        "AI Safety Cape Town: Fellowship Retrospective",
+        "Cross-Border AI Governance - A Focus on East, West, and South Africa",
+        "AI as a Transformative Tool in Promoting Access in Kenya's Criminal Justice System",
+        "Sustainable AI and Rethinking AI Ethics and Governance for a Global Context",
+        "Exploring AI Governance Education and Opportunities in the Global South",
+        "The Geopolitics of AI in Africa: AI Governance in Critical National Security Areas",
+        "State of AI Governance in Healthcare in Kenya",
+        "AI-Enhanced Food Loss Reduction and Circular Systems for Climate Action in Kenya",
+        "Advanced AI Regulation: A Dual Framework for Comprehensive Oversight"
+      ],
+      "feedback": "This was a great initiative. Great job to everyone involved in organizing, tutoring, and monitoring this program. Your efforts are not unnoticed. - Lois Moses (Research Staff, Pan-African Centre for AI Ethics)",
+      "image_description": "AI Safety Fundamentals Course participants",
+      "image_url": null
+    }
+  ],
+  "events": {
+    "workshops": [
+      {
+        "title": "Deep Learning IndabaX (July 2024): AGI Horizons Panel",
+        "duration": "1.5 hours",
+        "type": "Panel discussion",
+        "panelists": [
+          "Leo Hyams",
+          "Benjamin Sturgeon",
+          "Professor Benjamin Rosman (Professor of AI at Wits)",
+          "Lydia De Lange (Executive Director of Deep Learning IndabaX South Africa)",
+          "Joshua Maumela (Senior ML Engineer at Vodacom)"
+        ],
+        "attendees": "100-150",
+        "feedback": {
+          "responses": 23,
+          "rating": "4/5 average",
+          "notes": "Overall, a very engaging event, but Vodacom guy had a bit of an odd perspective and the session overall could have used more structure"
+        },
+        "image_description": "AGI Horizons panel discussion",
+        "image_url": null
+      },
+      {
+        "title": "Deep Learning IndabaX (July 2024): AI Risk Workshop",
+        "duration": "2 hours",
+        "components": [
+          "Talks on AI development and risk landscape",
+          "Guided discussions in groups of ~6",
+          "Facilitated paper reading (Feature Visualization by Chris Olah)"
+        ],
+        "attendees": "~50",
+        "feedback": {
+          "responses": 5,
+          "rating": "8.2/10 average",
+          "notes": "Great session overall, but the paper was a bit too technical for some"
+        },
+        "image_description": "AI Risk workshop participants",
+        "image_url": null
+      },
+      {
+        "title": "EA South Africa x AI Safety Cape Town Workshop (May 2024)",
+        "description": "Virtual workshop pilot",
+        "participants": "~10",
+        "image_description": "Virtual workshop session",
+        "image_url": null
+      },
+      {
+        "title": "IndabaXS (March 2024): AI Safety Roundtable",
+        "duration": "3 hours",
+        "description": "Workshop on technical AI safety",
+        "participants": "~15",
+        "quote": "Thank you for hosting this event. It was incredible to be in a space that nurture conversions and knowledge sharing around AI Safety - Simone Renga (Data Scientist, Sand Technologies)",
+        "image_description": "AI Safety roundtable discussion",
+        "image_url": null
+      }
+    ],
+    "meetups": {
+      "description": "Casual meetups with meals and guided discussions",
+      "participants": "~12 participants each",
+      "image_description": "AI Safety meetup dinner",
+      "image_url": null
+    },
+    "reading_groups": {
+      "schedule": "Weekly reading groups on Wednesdays",
+      "participants": "~8 participants average",
+      "image_description": "Reading group session",
+      "image_url": null
+    },
+    "retreat": {
+      "title": "Condor Camp Retreat",
+      "partnership": "Condor Initiative",
+      "duration": "9 days",
+      "participants": "24 top South African AI safety talent, ML professors, international AI Safety experts",
+      "outcome": "Interest in forming AI Safety postdoc positions at UCT AI Institute and Wits MIND Institute",
+      "reports": [
+        "https://docs.google.com/document/d/11o_IbFYfEnF52GHhFMzU7YDNVSJv42ak3NIACBQCk1Q/edit?usp=sharing",
+        "https://docs.google.com/document/d/1VAgaLQjU3K6myIKJkMBRn6uiXmRwcXe8MzGOdj-PvcE/edit?tab=t.0#heading=h.qah534e7sogi"
+      ],
+      "image_description": "Condor Camp retreat group photo",
+      "image_url": null
+    }
+  }
+}

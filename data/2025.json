@@ -1,0 +1,231 @@
+{
+  "courses": [
+    {
+      "title": "June 12-week AI Safety Fundamentals Course",
+      "details": "Governance, Economics, and Alignment streams (on-going)",
+      "image_description": "AI Safety Fundamentals Course participants",
+      "image_url": null
+    },
+    {
+      "title": "Intro to Transformative AI Course - May",
+      "details": "Course for professionals interested in transformative AI",
+      "metrics": {
+        "accepted": 36,
+        "completed": 24,
+        "completion_rate": "67%",
+        "rating": 9.5,
+        "dropout_rate": "33%"
+      },
+      "statistics": {
+        "professional_participation": "72% of participants are full-time professionals or self-employed",
+        "highest_rated": "facilitator guidance and participant interactions",
+        "lowest_rated": "Project phase (8.8/10) - needs more support and time"
+      },
+      "african_context_topics": [
+        "The state of AI governance in Africa",
+        "AI preparedness in Africa",
+        "Benefit sharing schemes",
+        "AI sovereignty in Africa",
+        "Threat modelling around AI misuse"
+      ],
+      "impact": "Four course completers joined the 12-week AISF course.",
+      "image_description": "Intro to Transformative AI Course group photo",
+      "image_url": null
+    },
+    {
+      "title": "Intro to Cooperative AI Course by the Cooperative AI Foundation",
+      "details": "First official in-person cohort ever",
+      "image_description": "Cooperative AI Course participants",
+      "image_url": null
+    },
+    {
+      "title": "BlueDot's Intro to Transformative AI Course - February",
+      "details": "First official in-person cohort ever",
+      "impact": "One participant wrote about their experience, another quit their job to work on AI Safety, another joined our research group",
+      "image_description": "BlueDot course at Innovation City",
+      "image_url": null
+    }
+  ],
+  "university_groups": [
+    {
+      "name": "AI Safety University of Witwatersrand (AI Safety WITS)",
+      "first_meetup": {
+        "attendees": "~23",
+        "rating": "10/10"
+      },
+      "image_description": "AI Safety WITS first meetup",
+      "image_url": null
+    },
+    {
+      "name": "Stellenbosch AI Safety (Stellies AI Safety)",
+      "organizers": ["Boyd Kane (Lead)", "Nicholas Lombard"],
+      "first_meetup": {
+        "attendees": "~12"
+      },
+      "image_description": "Stellies AI Safety meetup",
+      "image_url": null
+    }
+  ],
+  "events": {
+    "talks": [
+      {
+        "title": "Cooperative AI Talk and Discussion",
+        "speaker": "Claude Formanek (Cooperative AI Foundation Fellow)",
+        "attendees": "~20",
+        "image_description": "Cooperative AI talk with Claude Formanek",
+        "image_url": null
+      }
+    ],
+    "notable_meetups": [
+      {
+        "title": "AI Governance Faculty Meetup Early 2025",
+        "description": "Dinner with top AI governance faculty in Cape Town",
+        "attendees": "2 professors, postdoc, and researcher from national think tank",
+        "image_description": "AI Governance faculty dinner",
+        "image_url": null
+      }
+    ]
+  },
+  "individual_impacts": [
+    {
+      "name": "Charl Botha",
+      "role": "Previous Full Stack Engineer",
+      "linkedin": "https://www.linkedin.com/in/botha-charl/",
+      "achievements": [
+        "Joined BlueDot Intro to Transformative AI course",
+        "Quit job to work on AI Safety",
+        "Completed Intro to Cooperative AI Course",
+        "Now Infrastructure Developer for AI Safety South Africa"
+      ],
+      "image_description": "Photo of Charl Botha",
+      "image_url": null
+    },
+    {
+      "name": "Jaco Du Toit",
+      "role": "Data Scientist",
+      "linkedin": "https://www.linkedin.com/in/jaco-du-toit-a04785208/",
+      "achievements": [
+        "Joined Condor Camp 2024",
+        "Quit job to work on AI Safety",
+        "Joined team developing evals for UK AISI",
+        "Completed Intro to Cooperative AI Course",
+        "Attended Cooperative AI Summer School",
+        "UK AISI Science of Evals Challenge Fund grant recipient"
+      ],
+      "image_description": "Photo of Jaco Du Toit",
+      "image_url": null
+    },
+    {
+      "name": "Josh Stein",
+      "role": "Software Engineer",
+      "linkedin": "https://www.linkedin.com/in/josh-s-5b4ab869/",
+      "achievements": [
+        "Joined Condor Camp 2024",
+        "Joined BlueDot Intro to Transformative AI course",
+        "Contracted with METR, Equistamp, and AI Safety Engineering Taskforce",
+        "Now software engineer for BlueDot Impact"
+      ],
+      "image_description": "Photo of Josh Stein",
+      "image_url": null
+    },
+    {
+      "name": "Daniel Samuelson",
+      "role": "ML Engineer",
+      "linkedin": "https://www.linkedin.com/in/daniel-samuelson-20b36a1b2/",
+      "achievements": [
+        "Joined Condor Camp 2024",
+        "Pivoted from ML engineering to research engineering",
+        "Contributed significantly to HumanAgencyBench research paper (accepted to AAAI)"
+      ],
+      "image_description": "Photo of Daniel Samuelson",
+      "image_url": null
+    },
+    {
+      "name": "Noah De Nicola",
+      "role": "Reinforcement Learning MSc Student",
+      "linkedin": "https://www.linkedin.com/in/noah-de-nicola-9626b2218/",
+      "achievements": [
+        "Joined Condor Camp 2024",
+        "Joined team developing evals for UK AISI",
+        "AI Safety Fundamentals Course Facilitator"
+      ],
+      "image_description": "Photo of Noah De Nicola",
+      "image_url": null
+    },
+    {
+      "name": "Benjamin Sturgeon",
+      "role": "Strategic Director of AISSA",
+      "linkedin": "https://www.linkedin.com/in/benjamin-sturgeon-41221241/?originalSubdomain=za",
+      "achievements": [
+        "Accepted to MATS 8.0 and MATS extension program under Oly Sourbut and Sid Black's stream"
+      ],
+      "image_description": "Photo of Benjamin Sturgeon",
+      "image_url": null
+    },
+    {
+      "name": "Genevieve Chikwanha",
+      "role": "Computer Science Student at UCT",
+      "linkedin": "https://www.linkedin.com/in/g%C3%A9nevieve-chikwanha-7202511b4/?originalSubdomain=za",
+      "achievements": [
+        "Joined Condor Camp 2024",
+        "Now AISF course facilitator",
+        "Conducting research on AI startup risks as research assistant"
+      ],
+      "image_description": "Photo of Genevieve Chikwanha",
+      "image_url": null
+    },
+    {
+      "name": "Tegan Green",
+      "role": "Event Curator at AISSA",
+      "linkedin": "https://www.linkedin.com/in/tegan-green-484510158",
+      "achievements": [
+        "Joined Intro to Cooperative AI Course Q2 2025",
+        "Now event curator for AISSA",
+        "Applying to be mentor for AI Safety Camp"
+      ],
+      "image_description": "Photo of Tegan Green",
+      "image_url": null
+    }
+  ],
+  "research": [
+    {
+      "title": "HumanAgencyBench",
+      "paper_title": "HumanAgencyBench: Do Language Models Support Human Agency?",
+      "authors": "B. Sturgeon, L. Hyams, D. Samuelson, E. Vorster, J. Haimes, and J. R. Anthis",
+      "venue": "Workshop on Datasets and Evaluators of AI Safety, Feb. 2025",
+      "status": "Accepted",
+      "url": "https://openreview.net/forum?id=nHp5FquS2R",
+      "image_description": "HumanAgencyBench research presentation",
+      "image_url": null
+    },
+    {
+      "title": "UK AISI Bounties",
+      "bounties": [
+        "Synthetic Environment Detection Eval - J. Du Toit, L. Hyams, A. Strickland Cooper, J. Olive",
+        "Situational Awareness Eval - N. De Nicola, L. Hyams, B. Sturgeon, J. Du Toit, J. Bailey, A. Abbas",
+        "RL Manipulation Eval - J. Du Toit, L. Hyams, C. Waggoner",
+        "Efficient Test-Time Chain of Thought Eval - J. Du Toit, L. Hyams, C. Waggoner"
+      ],
+      "image_description": "UK AISI Bounty acceptance certificates",
+      "image_url": null
+    },
+    {
+      "title": "Precursors, Proxies, and Predictive Models for Long-Horizon Tasks",
+      "authors": "J. Du Toit, L. Hyams, D. Anisimov, S. Brown",
+      "venue": "Workshop on Evaluating the Evolving LLM Lifecycle: Benchmarks, Emergent Abilities, and Scaling at NeurIPS 2025",
+      "status": "Accepted",
+      "image_description": "NeurIPS 2025 workshop presentation",
+      "image_url": null
+    },
+    {
+      "title": "UK AISI Challenge Fund",
+      "grant_amount": "99,999 GBP",
+      "awarded": "Q4 2025",
+      "project": "Proxies for Efficient Evaluation of Autonomous Replication and Adaptation in AI Agents",
+      "team": "Leo Hyams, Jaco Du Toit, Samuel Brown",
+      "partnership": "UK AISI's Science of Evaluations team",
+      "image_description": "UK AISI Challenge Fund grant ceremony",
+      "image_url": null
+    }
+  ]
+}

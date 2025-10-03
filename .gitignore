@@ -193,7 +193,6 @@ $RECYCLE.BIN/
 
 # Data files (common extensions)
 *.csv
-*.json
 *.xlsx
 *.xls
 *.parquet

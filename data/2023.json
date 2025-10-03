@@ -1,0 +1,41 @@
+{
+  "events": [
+    {
+      "title": "SACAIR (November 2023): AI Safety Tutorial",
+      "duration": "2 hours",
+      "content": "Broad overview of technical AI safety with interactive red teaming exercises",
+      "presenters": ["Benjamin Sturgeon", "Leo Hyams"],
+      "participants": "~30",
+      "image_description": "SACAIR AI Safety tutorial",
+      "image_url": null
+    },
+    {
+      "title": "IndabaXS: AI Risk and Opportunity in Africa",
+      "format": "Breakout groups into AI risk, AI for Good, and AI in Africa",
+      "participants": "~15",
+      "image_description": "IndabaXS breakout session",
+      "image_url": null
+    },
+    {
+      "title": "Deep Learning IndabaX (July 2023): AI Safety and Governance Workshop",
+      "duration": "2.5 hours",
+      "presentations": [
+        {
+          "title": "African safety landscape",
+          "presenter": "Jonas Kgomo"
+        },
+        {
+          "title": "AI governance in Africa",
+          "presenter": "Zainab Chirwa"
+        },
+        {
+          "title": "Introduction to AI safety",
+          "presenter": "Benjamin Sturgeon"
+        }
+      ],
+      "participants": "~40",
+      "image_description": "Deep Learning IndabaX 2023 workshop",
+      "image_url": null
+    }
+  ]
+}
