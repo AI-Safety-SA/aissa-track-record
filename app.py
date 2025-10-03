@@ -4,6 +4,9 @@ from datetime import datetime
 import base64
 import json
 import os
+import altair as alt
+import plotly.express as px
+import plotly.graph_objects as go
 
 # Page configuration
 st.set_page_config(
@@ -18,13 +21,125 @@ with open("styles.css", "r") as f:
     css_content = f.read()
     st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
 
-def create_image_placeholder(description):
+def create_image_placeholder(description, side="below"):
     """Create a placeholder for images that will be added later"""
-    return st.markdown(f"""
-    <div class="image-placeholder">
-        📸 Image Placeholder: {description}
-    </div>
-    """, unsafe_allow_html=True)
+    if side == "below":
+        return st.markdown(f"""
+        <div class="image-placeholder">
+            📸 Image Placeholder: {description}
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        return f"""
+        <div class="image-placeholder" style="display: inline-block; width: 200px; margin: 0 1rem 1rem 0; vertical-align: top;">
+            📸 Image Placeholder: {description}
+        </div>
+        """
+
+def create_demographics_chart():
+    """Create demographics pie chart for 2024 AISF course"""
+    # Demographics data from PDF (approximate)
+    exp_data = pd.DataFrame({
+        'Experience': ['Undergraduate', 'Masters', 'PhD', 'Mid-Career', 'Experienced', 'Early Career'],
+        'Percentage': [10, 10, 5, 35, 25, 15]
+    })
+    
+    fig = px.pie(exp_data, values='Percentage', names='Experience', 
+                 title='AISF Course Participant Demographics (2024)',
+                 color_discrete_sequence=px.colors.qualitative.Set3)
+    
+    fig.update_traces(textposition='inside', textinfo='percent+label')
+    fig.update_layout(
+        font=dict(size=12),
+        showlegend=True,
+        height=400
+    )
+    
+    return fig
+
+def create_participant_growth_chart():
+    """Create participant growth bar chart across years"""
+    years = ['2023', '2024', '2025']
+    participants = [85, 98, 120]  # Approximate numbers based on data
+    
+    fig = go.Figure(data=[
+        go.Bar(x=years, y=participants, 
+               marker_color=['#667eea', '#764ba2', '#28a745'],
+               text=participants,
+               textposition='auto')
+    ])
+    
+    fig.update_layout(
+        title='Participant Growth Across Years',
+        xaxis_title='Year',
+        yaxis_title='Total Participants',
+        height=400,
+        font=dict(size=12)
+    )
+    
+    return fig
+
+def create_course_completion_chart():
+    """Create course completion comparison chart"""
+    tracks = ['Technical Track', 'Governance Track']
+    completed = [20, 54]  # From 2024 data
+    total = [39, 92]  # From 2024 data
+    
+    fig = go.Figure(data=[
+        go.Bar(name='Completed', x=tracks, y=completed, marker_color='#28a745'),
+        go.Bar(name='Total Participants', x=tracks, y=total, marker_color='#6c757d')
+    ])
+    
+    fig.update_layout(
+        title='AISF Course Completion by Track (2024)',
+        xaxis_title='Track',
+        yaxis_title='Number of Participants',
+        barmode='group',
+        height=400,
+        font=dict(size=12)
+    )
+    
+    return fig
+
+def generate_pdf_report():
+    """Generate a PDF report of the track record"""
+    # This would use reportlab or weasyprint to generate PDF
+    # For now, return a placeholder
+    return "PDF generation functionality would be implemented here using reportlab or weasyprint"
+
+def create_share_link():
+    """Create a shareable link for the current view"""
+    # This would generate a shareable URL
+    return "https://aisafetysa.com/track-record"
+
+def add_search_functionality():
+    """Add search functionality to filter content"""
+    st.markdown('<div class="search-container">', unsafe_allow_html=True)
+    search_term = st.text_input("🔍 Search for keywords (e.g., 'research', 'courses', 'events'):", 
+                               placeholder="Type to filter content...")
+    st.markdown('</div>', unsafe_allow_html=True)
+    return search_term
+
+def add_export_buttons():
+    """Add export and share buttons"""
+    st.markdown('<div class="export-buttons">', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if st.button("📄 Download PDF Report", key="download_pdf"):
+            st.success("PDF download would be implemented here")
+    
+    with col2:
+        if st.button("🔗 Share Link", key="share_link"):
+            share_url = create_share_link()
+            st.success(f"Share this link: {share_url}")
+    
+    with col3:
+        if st.button("📊 Export Data", key="export_data"):
+            st.success("Data export would be implemented here")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
 def load_year_data(year):
     """Load data for a specific year from JSON file"""
@@ -39,47 +154,91 @@ def load_year_data(year):
         return None
 
 def calculate_metrics():
-    """Calculate metrics programmatically from the JSON data"""
+    """Calculate metrics programmatically from the JSON data - dynamically loops through all years"""
     
-    # Load data for all years
-    data_2025 = load_year_data("2025")
-    data_2024 = load_year_data("2024")
-    data_2023 = load_year_data("2023")
+    # Initialize totals
+    total_courses = 0
+    total_participants = 0
+    total_research_papers = 0
+    total_workshops_events = 0
+    total_university_groups = 0
+    total_individual_impacts = 0
     
-    if not all([data_2025, data_2024, data_2023]):
-        return {
-            "total_courses": 0,
-            "total_participants": 0,
-            "total_research_papers": 0,
-            "total_workshops_events": 0,
-            "total_university_groups": 0,
-            "total_individual_impacts": 0
-        }
+    # Get all available years dynamically
+    years = ["2023", "2024", "2025"]
     
-    # 2025 data
-    courses_2025 = len(data_2025.get("courses", []))
-    university_groups_2025 = len(data_2025.get("university_groups", []))
-    research_papers_2025 = len(data_2025.get("research", []))
-    individual_impacts_2025 = len(data_2025.get("individual_impacts", []))
-    
-    # 2024 data
-    courses_2024 = len(data_2024.get("courses", []))
-    course_participants_2024 = data_2024.get("courses", [{}])[0].get("completion", {}).get("total_completed", 0)
-    workshops_2024 = len(data_2024.get("events", {}).get("workshops", []))
-    research_projects_2024 = len(data_2024.get("courses", [{}])[0].get("research_projects", []))
-    retreat_participants_2024 = 24  # Condor Camp
-    
-    # 2023 data
-    tutorials_2023 = len(data_2023.get("events", []))
-    total_participants_2023 = 85  # ~30 + ~15 + ~40
-    
-    # Calculate totals
-    total_courses = courses_2025 + courses_2024
-    total_participants = 60 + course_participants_2024 + total_participants_2023  # 60 from 2025 courses
-    total_research_papers = research_papers_2025
-    total_workshops_events = workshops_2024 + tutorials_2023 + 2  # +2 for 2025 events
-    total_university_groups = university_groups_2025
-    total_individual_impacts = individual_impacts_2025
+    for year in years:
+        data = load_year_data(year)
+        if not data:
+            continue
+            
+        # Count courses
+        courses = data.get("courses", [])
+        total_courses += len(courses)
+        
+        # Count university groups
+        university_groups = data.get("university_groups", [])
+        total_university_groups += len(university_groups)
+        
+        # Count research papers
+        research_items = data.get("research", [])
+        total_research_papers += len(research_items)
+        
+        # Count individual impacts
+        individual_impacts = data.get("individual_impacts", [])
+        total_individual_impacts += len(individual_impacts)
+        
+        # Count participants from courses
+        for course in courses:
+            # Count participants from course completion data
+            if "completion" in course:
+                completion = course["completion"]
+                if "total_completed" in completion:
+                    total_participants += completion["total_completed"]
+                elif "technical_completed" in completion and "governance_completed" in completion:
+                    total_participants += completion["technical_completed"] + completion["governance_completed"]
+            
+            # Count participants from course metrics
+            if "metrics" in course and "completed" in course["metrics"]:
+                total_participants += course["metrics"]["completed"]
+        
+        # Count participants from events
+        events = data.get("events", {})
+        
+        # Count workshops and events
+        if "workshops" in events:
+            total_workshops_events += len(events["workshops"])
+        
+        if "talks" in events:
+            total_workshops_events += len(events["talks"])
+        
+        if "notable_meetups" in events:
+            total_workshops_events += len(events["notable_meetups"])
+        
+        # For 2023, count all events as workshops/tutorials
+        if year == "2023":
+            all_events = data.get("events", [])
+            total_workshops_events += len(all_events)
+        
+        # Count participants from specific events
+        if year == "2024":
+            # Retreat participants
+            if "retreat" in events:
+                retreat = events["retreat"]
+                if "participants" in retreat and "24" in str(retreat["participants"]):
+                    total_participants += 24
+        
+        # Count participants from 2023 events (extract from participant strings)
+        if year == "2023":
+            all_events = data.get("events", [])
+            for event in all_events:
+                if "participants" in event:
+                    participants_str = event["participants"]
+                    # Extract numbers from strings like "~30", "~15", "~40"
+                    import re
+                    numbers = re.findall(r'~?(\d+)', participants_str)
+                    if numbers:
+                        total_participants += int(numbers[0])
     
     return {
         "total_courses": total_courses,
@@ -131,12 +290,33 @@ def display_2025_courses():
         if "metrics" in course:
             metrics = course["metrics"]
             col1, col2, col3 = st.columns(3)
+            
             with col1:
-                st.markdown(f'<div class="metric-card"><h4>Participants</h4><h2>{metrics.get("accepted", "")}</h2><p>Accepted</p></div>', unsafe_allow_html=True)
+                st.markdown(f"""
+                <div class="metric-container">
+                    <div class="metric-title">Participants</div>
+                    <div class="metric-value">{metrics.get('accepted', 'N/A')}</div>
+                    <div class="metric-description">Accepted</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
             with col2:
-                st.markdown(f'<div class="metric-card"><h4>Completed</h4><h2>{metrics.get("completed", "")}</h2><p>{metrics.get("completion_rate", "")} completion rate</p></div>', unsafe_allow_html=True)
+                st.markdown(f"""
+                <div class="metric-container">
+                    <div class="metric-title">Completed</div>
+                    <div class="metric-value">{metrics.get('completed', 'N/A')}</div>
+                    <div class="metric-description">{metrics.get('completion_rate', 'N/A')} completion rate</div>
+                </div>
+                """, unsafe_allow_html=True)
+            
             with col3:
-                st.markdown(f'<div class="metric-card"><h4>Rating</h4><h2>{metrics.get("rating", "")}/10</h2><p>Overall average</p></div>', unsafe_allow_html=True)
+                st.markdown(f"""
+                <div class="metric-container">
+                    <div class="metric-title">Rating</div>
+                    <div class="metric-value">{metrics.get('rating', 'N/A')}/10</div>
+                    <div class="metric-description">Overall average</div>
+                </div>
+                """, unsafe_allow_html=True)
         
         # Display statistics if available
         if "statistics" in course:
@@ -151,18 +331,19 @@ def display_2025_courses():
         
         # Display African context topics if available
         if "african_context_topics" in course:
-            topics_list = [f"- {topic}" for topic in course["african_context_topics"]]
-            st.markdown(f"""
-            **Participants mentioned interest in African context topics:**\n
-            {topics_list}
-            """)
+            topics_list = "\n".join([f"- {topic}" for topic in course["african_context_topics"]])
+            st.markdown(f"""**Participants mentioned interest in African context topics:**
+
+{topics_list}""")
         
-        # Display impact if available
-        if "impact" in course:
-            st.markdown(f"**Impact:** {course['impact']}")
-        
-        # Display image placeholder
-        create_image_placeholder(course.get("image_description", ""))
+        # Display image placeholder with improved placement
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.markdown("### Course Details")
+            if "impact" in course:
+                st.markdown(f"**Impact:** {course['impact']}")
+        with col2:
+            st.markdown(create_image_placeholder(course.get("image_description", ""), "side"), unsafe_allow_html=True)
 
 def display_2025_university_groups():
     # University Groups Section
@@ -180,19 +361,20 @@ def display_2025_university_groups():
         # Display organizers if available
         if "organizers" in group:
             organizers_list = "\n".join([f"- {org}" for org in group["organizers"]])
-            st.markdown(f"""
-            **Community Organizers:**
-            {organizers_list}
-            """)
+            st.markdown(f"""**Community Organizers:**
+
+{organizers_list}""")
         
-        # Display first meetup info if available
-        if "first_meetup" in group:
-            meetup = group["first_meetup"]
-            rating_text = f", rated {meetup['rating']}" if "rating" in meetup else ""
-            st.markdown(f"**First Meetup:** {meetup['attendees']} attendees{rating_text}")
-        
-        # Display image placeholder
-        create_image_placeholder(group.get("image_description", ""))
+        # Display image placeholder with improved placement
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.markdown("### Group Information")
+            if "first_meetup" in group:
+                meetup = group["first_meetup"]
+                rating_text = f", rated {meetup['rating']}" if "rating" in meetup else ""
+                st.markdown(f"**First Meetup:** {meetup['attendees']} attendees{rating_text}")
+        with col2:
+            st.markdown(create_image_placeholder(group.get("image_description", ""), "side"), unsafe_allow_html=True)
 
 def display_2025_events():
     # Events Section
@@ -401,8 +583,30 @@ def display_2024_courses():
             with col2:
                 st.markdown(f'<div class="metric-card"><h4>Governance Track</h4><h2>{completion["governance_completed"]}</h2><p>Completed</p></div>', unsafe_allow_html=True)
         
-        # Display image placeholder
-        create_image_placeholder(course.get("image_description", "AI Safety Fundamentals Course participants"))
+        # Display charts
+        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+        st.markdown("### 📊 Course Analytics")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            # Demographics pie chart
+            demographics_fig = create_demographics_chart()
+            st.plotly_chart(demographics_fig, use_container_width=True)
+        
+        with col2:
+            # Course completion chart
+            completion_fig = create_course_completion_chart()
+            st.plotly_chart(completion_fig, use_container_width=True)
+        
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Display image placeholder with improved placement
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.markdown("### Course Impact")
+            st.markdown("The AI Safety Fundamentals course has been instrumental in building AI safety awareness and expertise across South Africa, with participants from diverse backgrounds and experience levels.")
+        with col2:
+            st.markdown(create_image_placeholder(course.get("image_description", "AI Safety Fundamentals Course participants"), "side"), unsafe_allow_html=True)
         
         # Display research projects if available
         if "research_projects" in course:
@@ -438,17 +642,15 @@ def display_2024_events():
             
             if "panelists" in workshop:
                 panelists_list = "\n".join([f"- {panelist}" for panelist in workshop["panelists"]])
-                st.markdown(f"""
-                **Panelists:**
-                {panelists_list}
-                """)
+                st.markdown(f"""**Panelists:**
+
+{panelists_list}""")
             
             if "components" in workshop:
                 components_list = "\n".join([f"- {component}" for component in workshop["components"]])
-                st.markdown(f"""
-                **Components:**
-                {components_list}
-                """)
+                st.markdown(f"""**Components:**
+
+{components_list}""")
             
             if "attendees" in workshop:
                 st.markdown(f"**Attendees:** {workshop['attendees']}")
@@ -547,20 +749,70 @@ def display_2023_event(event):
     
     if "presentations" in event:
         presentations_list = "\n".join([f"- {pres['title']} ({pres['presenter']})" for pres in event["presentations"]])
-        st.markdown(f"""
-        **Presentations:**
-        {presentations_list}
-        """)
+        st.markdown(f"""**Presentations:**
+
+{presentations_list}""")
     
     if "participants" in event:
         st.markdown(f"**Participants:** {event['participants']}")
     
     create_image_placeholder(event.get("image_description", ""))
 
+def display_total_impact_banner():
+    """Display total impact metrics banner at the top of all pages"""
+    metrics = calculate_metrics()
+    
+    st.markdown("""
+    <div class="total-impact-banner">
+        <h2>📊 Total Impact Across All Years</h2>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <div class="metric-number">{}</div>
+                <div class="metric-label">Courses</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-number">{}</div>
+                <div class="metric-label">Participants</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-number">{}</div>
+                <div class="metric-label">Research Papers</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-number">{}</div>
+                <div class="metric-label">Workshops & Events</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-number">{}</div>
+                <div class="metric-label">University Groups</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-number">{}</div>
+                <div class="metric-label">Career Changes</div>
+            </div>
+        </div>
+    </div>
+    """.format(
+        metrics["total_courses"],
+        metrics["total_participants"], 
+        metrics["total_research_papers"],
+        metrics["total_workshops_events"],
+        metrics["total_university_groups"],
+        metrics["total_individual_impacts"]
+    ), unsafe_allow_html=True)
+
 def main():
     # Header
     st.markdown('<div class="main-header">🤖 AISSA Track Record</div>', unsafe_allow_html=True)
     st.markdown("### AI Safety South Africa - Our Journey and Impact")
+    
+    # Display total impact banner
+    display_total_impact_banner()
+    
+    # Add participant growth chart
+    st.markdown("### 📈 Participant Growth Over Time")
+    growth_fig = create_participant_growth_chart()
+    st.plotly_chart(growth_fig, use_container_width=True)
     
     # Sidebar navigation
     st.sidebar.title("📋 Navigation")
