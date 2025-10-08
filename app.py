@@ -21,20 +21,28 @@ with open("styles.css", "r") as f:
     css_content = f.read()
     st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
 
-def create_image_placeholder(description, side="below"):
-    """Create a placeholder for images that will be added later"""
-    if side == "below":
-        return st.markdown(f"""
-        <div class="image-placeholder">
-            📸 Image Placeholder: {description}
-        </div>
-        """, unsafe_allow_html=True)
+def create_image_placeholder(description, side="below", image_url=None):
+    """Display actual images with descriptions"""
+    if image_url and os.path.exists(image_url):
+        if side == "below":
+            st.image(image_url, caption=description, width='stretch')
+        else:
+            # For side images, use responsive layout
+            st.image(image_url, caption=description, width='stretch')
     else:
-        return f"""
-        <div class="image-placeholder" style="display: inline-block; width: 200px; margin: 0 1rem 1rem 0; vertical-align: top;">
-            📸 Image Placeholder: {description}
-        </div>
-        """
+        # Fallback to placeholder if image doesn't exist
+        if side == "below":
+            return st.markdown(f"""
+            <div class="image-placeholder">
+                📸 Image Placeholder: {description}
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            return f"""
+            <div class="image-placeholder" style="display: inline-block; width: 200px; margin: 0 1rem 1rem 0; vertical-align: top;">
+                📸 Image Placeholder: {description}
+            </div>
+            """
 
 def create_demographics_chart():
     """Create demographics pie chart for 2024 AISF course"""
@@ -336,14 +344,17 @@ def display_2025_courses():
 
 {topics_list}""")
         
-        # Display image placeholder with improved placement
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            st.markdown("### Course Details")
-            if "impact" in course:
-                st.markdown(f"**Impact:** {course['impact']}")
-        with col2:
-            st.markdown(create_image_placeholder(course.get("image_description", ""), "side"), unsafe_allow_html=True)
+        # Display image placeholder with responsive layout
+        st.markdown('<div class="responsive-image-container">', unsafe_allow_html=True)
+        st.markdown('<div class="responsive-image-text">', unsafe_allow_html=True)
+        st.markdown("### Course Details")
+        if "impact" in course:
+            st.markdown(f"**Impact:** {course['impact']}")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<div class="responsive-image-side">', unsafe_allow_html=True)
+        create_image_placeholder(course.get("image_description", ""), "side", course.get("image_url"))
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 def display_2025_university_groups():
     # University Groups Section
@@ -365,16 +376,19 @@ def display_2025_university_groups():
 
 {organizers_list}""")
         
-        # Display image placeholder with improved placement
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            st.markdown("### Group Information")
-            if "first_meetup" in group:
-                meetup = group["first_meetup"]
-                rating_text = f", rated {meetup['rating']}" if "rating" in meetup else ""
-                st.markdown(f"**First Meetup:** {meetup['attendees']} attendees{rating_text}")
-        with col2:
-            st.markdown(create_image_placeholder(group.get("image_description", ""), "side"), unsafe_allow_html=True)
+        # Display image placeholder with responsive layout
+        st.markdown('<div class="responsive-image-container">', unsafe_allow_html=True)
+        st.markdown('<div class="responsive-image-text">', unsafe_allow_html=True)
+        st.markdown("### Group Information")
+        if "first_meetup" in group:
+            meetup = group["first_meetup"]
+            rating_text = f", rated {meetup['rating']}" if "rating" in meetup else ""
+            st.markdown(f"**First Meetup:** {meetup['attendees']} attendees{rating_text}")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<div class="responsive-image-side">', unsafe_allow_html=True)
+        create_image_placeholder(group.get("image_description", ""), "side", group.get("image_url"))
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 def display_2025_events():
     # Events Section
@@ -392,7 +406,7 @@ def display_2025_events():
         for talk in events["talks"]:
             st.markdown(f"**{talk['title']}**")
             st.markdown(f"Hosted {talk['speaker']} - {talk['attendees']}")
-            create_image_placeholder(talk.get("image_description", ""))
+            create_image_placeholder(talk.get("image_description", ""), "below", talk.get("image_url"))
     
     # Display notable meetups
     if "notable_meetups" in events:
@@ -400,7 +414,7 @@ def display_2025_events():
         for meetup in events["notable_meetups"]:
             st.markdown(f"**{meetup['title']}**")
             st.markdown(f"{meetup['description']} - {meetup['attendees']}")
-            create_image_placeholder(meetup.get("image_description", ""))
+            create_image_placeholder(meetup.get("image_description", ""), "below", meetup.get("image_url"))
 
 def display_2025_individual_impacts():
     # Highlighted Individual Impacts
@@ -416,7 +430,7 @@ def display_2025_individual_impacts():
         with st.expander(f"👤 {impact['name']} - {impact['role']}"):
             for achievement in impact['achievements']:
                 st.markdown(f"• {achievement}")
-            create_image_placeholder(impact.get("image_description", f"Photo of {impact['name']}"))
+            create_image_placeholder(impact.get("image_description", f"Photo of {impact['name']}"), "below", impact.get("image_url"))
 
 def display_2025_research():
     # Research Section
@@ -466,7 +480,7 @@ def display_2025_research():
             st.markdown(f"**Partnership:** {item['partnership']}")
         
         # Display image placeholder
-        create_image_placeholder(item.get("image_description", ""))
+        create_image_placeholder(item.get("image_description", ""), "below", item.get("image_url"))
 
 def display_2024_content(section="overview"):
     st.markdown('<div class="year-header">2024</div>', unsafe_allow_html=True)
@@ -506,7 +520,7 @@ def display_2024_coworking():
     - {coworking.get('access', 'Access to media channels for public communication')}
     - {coworking.get('event_spaces', 'Large event spaces for talks, workshops, and reading groups')}
     """)
-    create_image_placeholder(coworking.get("image_description", "Innovation City co-working space"))
+    create_image_placeholder(coworking.get("image_description", "Innovation City co-working space"), "below", coworking.get("image_url"))
 
 def display_2024_website():
     # Website
@@ -520,7 +534,7 @@ def display_2024_website():
     
     st.markdown(website.get("description", "Built website to house newsletter and enable greater outreach and credibility"))
     st.markdown(f"**Website:** [{website.get('url', 'www.aisafetyct.com')}](http://{website.get('url', 'www.aisafetyct.com')})")
-    create_image_placeholder(website.get("image_description", "AISSA website homepage"))
+    create_image_placeholder(website.get("image_description", "AISSA website homepage"), "below", website.get("image_url"))
 
 def display_2024_newsletter():
     # Newsletter
@@ -537,7 +551,7 @@ def display_2024_newsletter():
     - Mailing list: {newsletter.get('mailing_list_size', '~60 people')}
     - {newsletter.get('platform', 'Moved to Substack for better metrics and feedback tracking')}
     """)
-    create_image_placeholder(newsletter.get("image_description", "Newsletter articles"))
+    create_image_placeholder(newsletter.get("image_description", "Newsletter articles"), "below", newsletter.get("image_url"))
 
 def display_2024_courses():
     # Courses
@@ -591,22 +605,25 @@ def display_2024_courses():
         with col1:
             # Demographics pie chart
             demographics_fig = create_demographics_chart()
-            st.plotly_chart(demographics_fig, use_container_width=True)
+            st.plotly_chart(demographics_fig)
         
         with col2:
             # Course completion chart
             completion_fig = create_course_completion_chart()
-            st.plotly_chart(completion_fig, use_container_width=True)
+            st.plotly_chart(completion_fig)
         
         st.markdown('</div>', unsafe_allow_html=True)
         
-        # Display image placeholder with improved placement
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            st.markdown("### Course Impact")
-            st.markdown("The AI Safety Fundamentals course has been instrumental in building AI safety awareness and expertise across South Africa, with participants from diverse backgrounds and experience levels.")
-        with col2:
-            st.markdown(create_image_placeholder(course.get("image_description", "AI Safety Fundamentals Course participants"), "side"), unsafe_allow_html=True)
+        # Display image placeholder with responsive layout
+        st.markdown('<div class="responsive-image-container">', unsafe_allow_html=True)
+        st.markdown('<div class="responsive-image-text">', unsafe_allow_html=True)
+        st.markdown("### Course Impact")
+        st.markdown("The AI Safety Fundamentals course has been instrumental in building AI safety awareness and expertise across South Africa, with participants from diverse backgrounds and experience levels.")
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('<div class="responsive-image-side">', unsafe_allow_html=True)
+        create_image_placeholder(course.get("image_description", "AI Safety Fundamentals Course participants"), "side", course.get("image_url"))
+        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
         # Display research projects if available
         if "research_projects" in course:
@@ -670,21 +687,21 @@ def display_2024_events():
             if "quote" in workshop:
                 st.markdown(f"**Quote:** {workshop['quote']}")
             
-            create_image_placeholder(workshop.get("image_description", ""))
+            create_image_placeholder(workshop.get("image_description", ""), "below", workshop.get("image_url"))
     
     # Display meetups
     if "meetups" in events:
         meetups = events["meetups"]
         st.markdown('<div class="subsection-header">Meetups</div>', unsafe_allow_html=True)
         st.markdown(meetups.get("description", "Casual meetups with meals and guided discussions"))
-        create_image_placeholder(meetups.get("image_description", "AI Safety meetup dinner"))
+        create_image_placeholder(meetups.get("image_description", "AI Safety meetup dinner"), "below", meetups.get("image_url"))
     
     # Display reading groups
     if "reading_groups" in events:
         reading_groups = events["reading_groups"]
         st.markdown('<div class="subsection-header">Reading Groups</div>', unsafe_allow_html=True)
         st.markdown(reading_groups.get("schedule", "Weekly reading groups on Wednesdays"))
-        create_image_placeholder(reading_groups.get("image_description", "Reading group session"))
+        create_image_placeholder(reading_groups.get("image_description", "Reading group session"), "below", reading_groups.get("image_url"))
     
     # Display retreat
     if "retreat" in events:
@@ -699,7 +716,7 @@ def display_2024_events():
         
         **Outcome:** {retreat.get('outcome', 'Interest in forming AI Safety postdoc positions at UCT AI Institute and Wits MIND Institute')}
         """)
-        create_image_placeholder(retreat.get("image_description", "Condor Camp retreat group photo"))
+        create_image_placeholder(retreat.get("image_description", "Condor Camp retreat group photo"), "below", retreat.get("image_url"))
 
 def display_2023_content(section="overview"):
     st.markdown('<div class="year-header">2023</div>', unsafe_allow_html=True)
@@ -756,7 +773,7 @@ def display_2023_event(event):
     if "participants" in event:
         st.markdown(f"**Participants:** {event['participants']}")
     
-    create_image_placeholder(event.get("image_description", ""))
+    create_image_placeholder(event.get("image_description", ""), "below", event.get("image_url"))
 
 def display_total_impact_banner():
     """Display total impact metrics banner at the top of all pages"""
@@ -812,7 +829,7 @@ def main():
     # Add participant growth chart
     st.markdown("### 📈 Participant Growth Over Time")
     growth_fig = create_participant_growth_chart()
-    st.plotly_chart(growth_fig, use_container_width=True)
+    st.plotly_chart(growth_fig)
     
     # Sidebar navigation
     st.sidebar.title("📋 Navigation")

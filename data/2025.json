@@ -30,7 +30,7 @@
       ],
       "impact": "Four course completers joined the 12-week AISF course.",
       "image_description": "Intro to Transformative AI Course group photo",
-      "image_url": null
+      "image_url": "images/intro-tai-jan-2025.png"
     },
     {
       "title": "Intro to Cooperative AI Course by the Cooperative AI Foundation",
@@ -54,7 +54,7 @@
         "rating": "10/10"
       },
       "image_description": "AI Safety WITS first meetup",
-      "image_url": null
+      "image_url": "images/ai-safety-wits-launch.jpg"
     },
     {
       "name": "Stellenbosch AI Safety (Stellies AI Safety)",
@@ -63,7 +63,7 @@
         "attendees": "~12"
       },
       "image_description": "Stellies AI Safety meetup",
-      "image_url": null
+      "image_url": "images/ai-safety-stellenbosch-launch.jpg"
     }
   ],
   "events": {

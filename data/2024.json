@@ -8,7 +8,7 @@
     "access": "Access to media channels for public communication",
     "event_spaces": "Large event spaces for talks, workshops, and reading groups",
     "image_description": "Innovation City co-working space",
-    "image_url": null
+    "image_url": "images/co-working-space-1.jpg"
   },
   "website": {
     "title": "Website",
@@ -69,7 +69,7 @@
       ],
       "feedback": "This was a great initiative. Great job to everyone involved in organizing, tutoring, and monitoring this program. Your efforts are not unnoticed. - Lois Moses (Research Staff, Pan-African Centre for AI Ethics)",
       "image_description": "AI Safety Fundamentals Course participants",
-      "image_url": null
+      "image_url": "images/intro-ai-safety-workshop-2024.jpg"
     }
   ],
   "events": {
@@ -92,7 +92,7 @@
           "notes": "Overall, a very engaging event, but Vodacom guy had a bit of an odd perspective and the session overall could have used more structure"
         },
         "image_description": "AGI Horizons panel discussion",
-        "image_url": null
+        "image_url": "images/indabax-panel-2024.jpg"
       },
       {
         "title": "Deep Learning IndabaX (July 2024): AI Risk Workshop",
@@ -109,7 +109,7 @@
           "notes": "Great session overall, but the paper was a bit too technical for some"
         },
         "image_description": "AI Risk workshop participants",
-        "image_url": null
+        "image_url": "images/indabaX-2024-intro-to-ai-safety-workshop.jpg"
       },
       {
         "title": "EA South Africa x AI Safety Cape Town Workshop (May 2024)",
@@ -125,14 +125,14 @@
         "participants": "~15",
         "quote": "Thank you for hosting this event. It was incredible to be in a space that nurture conversions and knowledge sharing around AI Safety - Simone Renga (Data Scientist, Sand Technologies)",
         "image_description": "AI Safety roundtable discussion",
-        "image_url": null
+        "image_url": "images/indabaxs-roundtable-2024.jpg"
       }
     ],
     "meetups": {
       "description": "Casual meetups with meals and guided discussions",
       "participants": "~12 participants each",
       "image_description": "AI Safety meetup dinner",
-      "image_url": null
+      "image_url": "images/aisct-meetup-2024.jpg"
     },
     "reading_groups": {
       "schedule": "Weekly reading groups on Wednesdays",
@@ -151,7 +151,7 @@
         "https://docs.google.com/document/d/1VAgaLQjU3K6myIKJkMBRn6uiXmRwcXe8MzGOdj-PvcE/edit?tab=t.0#heading=h.qah534e7sogi"
       ],
       "image_description": "Condor Camp retreat group photo",
-      "image_url": null
+      "image_url": "images/condor-camp-2024.jpg"
     }
   }
 }

@@ -80,9 +80,9 @@
   margin: 1rem 0;
 }
 
-.sidebar .sidebar-content {
-  /* background-color: #f8f9fa; */
-}
+/* .sidebar .sidebar-content {
+  background-color: #f8f9fa;
+} */
 
 .stButton > button {
   /* background-color: #3498db; */
@@ -93,9 +93,9 @@
   font-weight: bold;
 }
 
-.stButton > button:hover {
-  /* background-color: #2980b9; */
-}
+/* .stButton > button:hover {
+  background-color: #2980b9;
+} */
 
 /* Total Impact Banner */
 .total-impact-banner {
@@ -286,6 +286,23 @@
   font-style: italic;
 }
 
+/* Responsive image layout */
+.responsive-image-container {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+
+.responsive-image-text {
+  flex: 2;
+}
+
+.responsive-image-side {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .metrics-grid {
@@ -299,5 +316,16 @@
 
   .total-impact-banner {
     padding: 1.5rem;
+  }
+
+  /* Stack images below text on mobile */
+  .responsive-image-container {
+    flex-direction: column;
+  }
+
+  .responsive-image-text,
+  .responsive-image-side {
+    flex: none;
+    width: 100%;
   }
 }
