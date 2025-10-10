@@ -5,7 +5,16 @@ A Streamlit application showcasing the AI Safety South Africa (AISSA) track reco
 ## Installation
 
 1. Clone or download this repository
-2. Install the required dependencies:
+2. Create the virtual environment (replace '.venv' with your preferred name if desired)
+   ```bash
+   python3 -m venv .venv
+   ```
+3. Activate the virtual environment
+   ```bash
+   # note this is mac specific
+   source venv/bin/activate
+   ```
+4. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```

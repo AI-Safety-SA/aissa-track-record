@@ -8,6 +8,28 @@ import altair as alt
 import plotly.express as px
 import plotly.graph_objects as go
 
+# Global theming for charts (light theme)
+# Palette from info/style-guide.md
+PALETTE = {
+    "sunshine": "#eec362",
+    "eggwhite": "#f5edd2",
+    "brick": "#b85829",
+    "olive": "#83a066",
+    "deep_brown": "#2b1414",
+    "light_blue": "#2c6398",
+}
+
+COLOR_SEQUENCE = [
+    PALETTE["light_blue"],
+    PALETTE["brick"],
+    PALETTE["olive"],
+    PALETTE["sunshine"],
+    PALETTE["deep_brown"],
+]
+
+px.defaults.template = "plotly_white"
+px.defaults.color_discrete_sequence = COLOR_SEQUENCE
+
 # Page configuration
 st.set_page_config(
     page_title="AISSA Track Record",
@@ -52,9 +74,13 @@ def create_demographics_chart():
         'Percentage': [10, 10, 5, 35, 25, 15]
     })
     
-    fig = px.pie(exp_data, values='Percentage', names='Experience', 
-                 title='AISF Course Participant Demographics (2024)',
-                 color_discrete_sequence=px.colors.qualitative.Set3)
+    fig = px.pie(
+        exp_data,
+        values='Percentage',
+        names='Experience',
+        title='AISF Course Participant Demographics (2024)',
+        color_discrete_sequence=COLOR_SEQUENCE,
+    )
     
     fig.update_traces(textposition='inside', textinfo='percent+label')
     fig.update_layout(
@@ -71,10 +97,13 @@ def create_participant_growth_chart():
     participants = [85, 98, 120]  # Approximate numbers based on data
     
     fig = go.Figure(data=[
-        go.Bar(x=years, y=participants, 
-               marker_color=['#667eea', '#764ba2', '#28a745'],
-               text=participants,
-               textposition='auto')
+        go.Bar(
+            x=years,
+            y=participants,
+            marker_color=[PALETTE["light_blue"], PALETTE["brick"], PALETTE["olive"]],
+            text=participants,
+            textposition='auto'
+        )
     ])
     
     fig.update_layout(
@@ -82,7 +111,8 @@ def create_participant_growth_chart():
         xaxis_title='Year',
         yaxis_title='Total Participants',
         height=400,
-        font=dict(size=12)
+        font=dict(size=12),
+        template='plotly_white'
     )
     
     return fig
@@ -94,8 +124,8 @@ def create_course_completion_chart():
     total = [39, 92]  # From 2024 data
     
     fig = go.Figure(data=[
-        go.Bar(name='Completed', x=tracks, y=completed, marker_color='#28a745'),
-        go.Bar(name='Total Participants', x=tracks, y=total, marker_color='#6c757d')
+        go.Bar(name='Completed', x=tracks, y=completed, marker_color=PALETTE["olive"]),
+        go.Bar(name='Total Participants', x=tracks, y=total, marker_color=PALETTE["light_blue"])
     ])
     
     fig.update_layout(
@@ -104,7 +134,8 @@ def create_course_completion_chart():
         yaxis_title='Number of Participants',
         barmode='group',
         height=400,
-        font=dict(size=12)
+        font=dict(size=12),
+        template='plotly_white'
     )
     
     return fig
@@ -478,9 +509,6 @@ def display_2025_research():
         
         if "partnership" in item:
             st.markdown(f"**Partnership:** {item['partnership']}")
-        
-        # Display image placeholder
-        create_image_placeholder(item.get("image_description", ""), "below", item.get("image_url"))
 
 def display_2024_content(section="overview"):
     st.markdown('<div class="year-header">2024</div>', unsafe_allow_html=True)
@@ -605,12 +633,12 @@ def display_2024_courses():
         with col1:
             # Demographics pie chart
             demographics_fig = create_demographics_chart()
-            st.plotly_chart(demographics_fig)
+            st.plotly_chart(demographics_fig, use_container_width=True)
         
         with col2:
             # Course completion chart
             completion_fig = create_course_completion_chart()
-            st.plotly_chart(completion_fig)
+            st.plotly_chart(completion_fig, use_container_width=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
         
@@ -829,7 +857,7 @@ def main():
     # Add participant growth chart
     st.markdown("### 📈 Participant Growth Over Time")
     growth_fig = create_participant_growth_chart()
-    st.plotly_chart(growth_fig)
+    st.plotly_chart(growth_fig, use_container_width=True)
     
     # Sidebar navigation
     st.sidebar.title("📋 Navigation")
@@ -902,18 +930,6 @@ def main():
     
     selected_year = st.session_state.selected_year
     selected_section = st.session_state.selected_section
-    
-    # Quick stats in sidebar - calculated programmatically
-    st.sidebar.markdown("### 📊 Total Impact")
-    
-    metrics = calculate_metrics()
-    
-    st.sidebar.metric("Total Courses", metrics["total_courses"])
-    st.sidebar.metric("Total Participants", metrics["total_participants"])
-    st.sidebar.metric("Research Papers", metrics["total_research_papers"])
-    st.sidebar.metric("Workshops & Events", metrics["total_workshops_events"])
-    st.sidebar.metric("University Groups", metrics["total_university_groups"])
-    st.sidebar.metric("Individual Career Changes", metrics["total_individual_impacts"])
     
     # Display content based on selection
     if selected_year == "2025":

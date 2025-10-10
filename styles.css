@@ -1,9 +1,70 @@
 /* AISSA Track Record - Custom Styles */
 
+/* Palette variables from info/style-guide.md */
+:root {
+  --color-sunshine: #eec362; /* warm yellow */
+  --color-eggwhite: #f5edd2; /* primary background */
+  --color-brick: #b85829; /* accent */
+  --color-olive: #83a066; /* success/positive */
+  --color-deep-brown: #2b1414; /* deep text/accent */
+  --color-light-blue: #2c6398; /* secondary background */
+  --bg-gradient-top: #013249; /* site background gradient top */
+  --bg-gradient-bottom: #fffae9; /* site background gradient bottom */
+  --text-color: #000000; /* standard black text */
+}
+
+/* App background gradient (light theme) */
+.stApp {
+  background: #fffae9 !important;
+  color: var(--text-color);
+}
+
+/* Streamlit header (fix black top bar and enforce light theme) */
+header[data-testid="stHeader"] {
+  background-color: var(--color-eggwhite) !important;
+  color: var(--text-color) !important;
+  border-bottom: 1px solid rgba(44, 99, 152, 0.15);
+}
+header[data-testid="stHeader"] * {
+  color: var(--text-color) !important;
+}
+
+/* Sidebar light theme */
+section[data-testid="stSidebar"] {
+  background-color: var(--color-eggwhite) !important;
+  color: var(--text-color) !important;
+}
+section[data-testid="stSidebar"] * {
+  color: var(--text-color) !important;
+}
+
+/* Sidebar expanders (year items) - enforce light header and body */
+section[data-testid="stSidebar"] div[data-testid="stExpander"] {
+  background-color: var(--color-eggwhite) !important;
+  border: 1px solid rgba(44, 99, 152, 0.15) !important;
+  border-radius: 8px !important;
+}
+section[data-testid="stSidebar"] div[data-testid="stExpander"] summary,
+section[data-testid="stSidebar"]
+  div[data-testid="stExpander"]
+  div[role="button"] {
+  background-color: var(--color-eggwhite) !important;
+  color: var(--text-color) !important;
+  background-image: none !important;
+}
+section[data-testid="stSidebar"] div[data-testid="stExpander"] summary svg,
+section[data-testid="stSidebar"]
+  div[data-testid="stExpander"]
+  div[role="button"]
+  svg {
+  fill: var(--text-color) !important;
+  color: var(--text-color) !important;
+}
+
 .main-header {
   font-size: 3rem;
   font-weight: bold;
-  /* color: #1f77b4; */
+  color: var(--color-deep-brown);
   text-align: center;
   margin-bottom: 2rem;
   /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); */
@@ -12,7 +73,7 @@
 .year-header {
   font-size: 2.5rem;
   font-weight: bold;
-  /* color: #2c3e50; */
+  color: var(--color-deep-brown);
   margin-top: 2rem;
   margin-bottom: 1rem;
   border-bottom: 3px;
@@ -22,40 +83,41 @@
 .section-header {
   font-size: 2rem;
   font-weight: bold;
-  /* color: #34495e; */
+  color: var(--color-deep-brown);
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  /* border-left: 4px solid #3498db; */
+  border-left: 4px solid var(--color-light-blue);
   padding-left: 1rem;
 }
 
 .subsection-header {
   font-size: 1.5rem;
   font-weight: bold;
-  /* color: #2c3e50; */
+  color: var(--color-deep-brown);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .metric-card {
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  /* subtle light card */
   padding: 1rem;
   border-radius: 10px;
-  /* color: white; */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: var(--text-color);
   margin: 0.5rem 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .highlight-box {
-  /* background-color: #f8f9fa; */
-  border-left: 4px solid #28a745;
+  background-color: var(--color-eggwhite);
+  border-left: 4px solid var(--color-olive);
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 0 5px 5px 0;
 }
 
 .impact-item {
-  /* background-color: #fff3cd; */
+  background-color: #fff3cd;
   border: 1px solid #ffeaa7;
   border-radius: 8px;
   padding: 1rem;
@@ -63,7 +125,7 @@
 }
 
 .research-item {
-  /* background-color: #e3f2fd; */
+  background-color: #e3f2fd;
   border: 1px solid #90caf9;
   border-radius: 8px;
   padding: 1rem;
@@ -71,8 +133,8 @@
 }
 
 .image-placeholder {
-  /* background-color: #f0f0f0; */
-  border: 2px dashed #ccc;
+  background-color: #f8f9fa;
+  border: 2px dashed #dee2e6;
   border-radius: 8px;
   padding: 2rem;
   text-align: center;
@@ -85,8 +147,8 @@
 } */
 
 .stButton > button {
-  /* background-color: #3498db; */
-  color: white;
+  background-color: var(--color-light-blue);
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -99,8 +161,12 @@
 
 /* Total Impact Banner */
 .total-impact-banner {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--color-light-blue) 0%,
+    var(--color-olive) 100%
+  );
+  color: #ffffff;
   padding: 2rem;
   border-radius: 15px;
   margin: 2rem 0;
@@ -157,12 +223,12 @@
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   padding-left: 1rem;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--color-light-blue);
   transition: all 0.3s ease;
 }
 
 .section-header:hover {
-  border-left-color: #764ba2;
+  border-left-color: var(--color-olive);
   transform: translateX(5px);
 }
 
@@ -194,22 +260,22 @@
 }
 
 .image-placeholder:hover {
-  border-color: #667eea;
-  background-color: #f0f2ff;
+  border-color: var(--color-light-blue);
+  background-color: #f0f6fb;
 }
 
-/* Enhanced sidebar styling */
+/* Sidebar styling (light, egg white) */
 .sidebar .sidebar-content {
-  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  background: var(--color-eggwhite);
 }
 
 /* Search bar styling */
 .search-container {
   margin: 1rem 0;
   padding: 1rem;
-  background: #f8f9fa;
+  background: var(--color-eggwhite);
   border-radius: 10px;
-  border: 1px solid #dee2e6;
+  border: 1px solid rgba(44, 99, 152, 0.2);
 }
 
 /* Export/Share buttons */
@@ -242,12 +308,12 @@
 
 /* Chart container styling */
 .chart-container {
-  background: white;
+  background: #ffffff;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin: 1rem 0;
-  border: 1px solid #dee2e6;
+  border: 1px solid rgba(44, 99, 152, 0.15);
 }
 
 /* Metric container styling for course metrics */
