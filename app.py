@@ -75,7 +75,7 @@ def create_side_by_side_layout(text_content, image_description, image_url=None):
     
     with col2:
         if image_url and os.path.exists(image_url):
-            st.image(image_url, caption=image_description, use_column_width=True)
+            st.image(image_url, caption=image_description, width='content')
         else:
             st.markdown(f"""
             <div class="image-placeholder-square">
@@ -921,16 +921,17 @@ def display_total_impact_banner():
 
 def main():
     # Header
-    st.markdown('<div class="main-header">🤖 AISSA Track Record</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">AISSA Track Record</div>', unsafe_allow_html=True)
     st.markdown("### AI Safety South Africa - Our Journey and Impact")
     
     # Display total impact banner
-    display_total_impact_banner()
-    
-    # Add participant growth chart
-    st.markdown("### 📈 Participant Growth Over Time")
-    growth_fig = create_participant_growth_chart()
-    st.plotly_chart(growth_fig, use_container_width=True)
+    col_left, col_right = st.columns(2)
+    with col_left:
+        display_total_impact_banner()
+    with col_right:
+        st.markdown("### 📈 Participant Growth Over Time")
+        growth_fig = create_participant_growth_chart()
+        st.plotly_chart(growth_fig, use_container_width=True)
     
     # Sidebar navigation
     st.sidebar.title("📋 Navigation")
