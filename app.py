@@ -49,8 +49,8 @@ def create_image_placeholder(description, side="below", image_url=None):
         if side == "below":
             st.image(image_url, caption=description, width='content')
         else:
-            # For side images, use responsive layout
-            st.image(image_url, caption=description, width='content')
+            # For side images, use fixed square dimensions
+            st.image(image_url, caption=description, width=200)
     else:
         # Fallback to placeholder if image doesn't exist
         if side == "below":
@@ -60,11 +60,11 @@ def create_image_placeholder(description, side="below", image_url=None):
             </div>
             """, unsafe_allow_html=True)
         else:
-            return f"""
-            <div class="image-placeholder" style="display: inline-block; width: 200px; margin: 0 1rem 1rem 0; vertical-align: top;">
-                📸 Image Placeholder: {description}
+            return st.markdown(f"""
+            <div class="image-placeholder" style="width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                📸 Image Placeholder:<br>{description}
             </div>
-            """
+            """, unsafe_allow_html=True)
 
 def create_demographics_chart():
     """Create demographics pie chart for 2024 AISF course"""

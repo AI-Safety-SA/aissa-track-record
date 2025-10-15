@@ -359,7 +359,7 @@ section[data-testid="stSidebar"]
 /* Responsive image layout */
 .responsive-image-container {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: flex-start;
   margin: 1rem 0;
 }
@@ -369,8 +369,32 @@ section[data-testid="stSidebar"]
 }
 
 .responsive-image-side {
-  flex: 1;
+  flex: 0 0 200px; /* Fixed width for square images */
   min-width: 0;
+}
+
+/* Square image styling for side images */
+.responsive-image-side img {
+  width: 200px !important;
+  height: 200px !important;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.responsive-image-side img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Image caption styling for side images */
+.responsive-image-side .stImage > div > div {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-style: italic;
 }
 
 /* Responsive design */
@@ -397,5 +421,14 @@ section[data-testid="stSidebar"]
   .responsive-image-side {
     flex: none;
     width: 100%;
+  }
+
+  /* Mobile image sizing */
+  .responsive-image-side img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
   }
 }
