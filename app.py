@@ -66,6 +66,23 @@ def create_image_placeholder(description, side="below", image_url=None):
             </div>
             """, unsafe_allow_html=True)
 
+def create_side_by_side_layout(text_content, image_description, image_url=None):
+    """Create a side-by-side layout with text taking 2/3 and image taking 1/3 of the space"""
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown(text_content, unsafe_allow_html=True)
+    
+    with col2:
+        if image_url and os.path.exists(image_url):
+            st.image(image_url, caption=image_description, use_column_width=True)
+        else:
+            st.markdown(f"""
+            <div class="image-placeholder-square">
+                📸 Image Placeholder:<br>{image_description}
+            </div>
+            """, unsafe_allow_html=True)
+
 def create_demographics_chart():
     """Create demographics pie chart for 2024 AISF course"""
     # Demographics data from PDF (approximate)
@@ -375,17 +392,16 @@ def display_2025_courses():
 
 {topics_list}""")
         
-        # Display image placeholder with responsive layout
-        st.markdown('<div class="responsive-image-container">', unsafe_allow_html=True)
-        st.markdown('<div class="responsive-image-text">', unsafe_allow_html=True)
-        st.markdown("### Course Details")
+        # Display image with side-by-side layout
+        text_content = "### Course Details"
         if "impact" in course:
-            st.markdown(f"**Impact:** {course['impact']}")
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('<div class="responsive-image-side">', unsafe_allow_html=True)
-        create_image_placeholder(course.get("image_description", ""), "side", course.get("image_url"))
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            text_content += f"\n\n**Impact:** {course['impact']}"
+        
+        create_side_by_side_layout(
+            text_content, 
+            course.get("image_description", ""), 
+            course.get("image_url")
+        )
 
 def display_2025_university_groups():
     # University Groups Section
@@ -407,19 +423,18 @@ def display_2025_university_groups():
 
 {organizers_list}""")
         
-        # Display image placeholder with responsive layout
-        st.markdown('<div class="responsive-image-container">', unsafe_allow_html=True)
-        st.markdown('<div class="responsive-image-text">', unsafe_allow_html=True)
-        st.markdown("### Group Information")
+        # Display image with side-by-side layout
+        text_content = "### Group Information"
         if "first_meetup" in group:
             meetup = group["first_meetup"]
             rating_text = f", rated {meetup['rating']}" if "rating" in meetup else ""
-            st.markdown(f"**First Meetup:** {meetup['attendees']} attendees{rating_text}")
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('<div class="responsive-image-side">', unsafe_allow_html=True)
-        create_image_placeholder(group.get("image_description", ""), "side", group.get("image_url"))
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+            text_content += f"\n\n**First Meetup:** {meetup['attendees']} attendees{rating_text}"
+        
+        create_side_by_side_layout(
+            text_content, 
+            group.get("image_description", ""), 
+            group.get("image_url")
+        )
 
 def display_2025_events():
     # Events Section
@@ -642,16 +657,16 @@ def display_2024_courses():
         
         st.markdown('</div>', unsafe_allow_html=True)
         
-        # Display image placeholder with responsive layout
-        st.markdown('<div class="responsive-image-container">', unsafe_allow_html=True)
-        st.markdown('<div class="responsive-image-text">', unsafe_allow_html=True)
-        st.markdown("### Course Impact")
-        st.markdown("The AI Safety Fundamentals course has been instrumental in building AI safety awareness and expertise across South Africa, with participants from diverse backgrounds and experience levels.")
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('<div class="responsive-image-side">', unsafe_allow_html=True)
-        create_image_placeholder(course.get("image_description", "AI Safety Fundamentals Course participants"), "side", course.get("image_url"))
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Display image with side-by-side layout
+        text_content = """### Course Impact
+
+The AI Safety Fundamentals course has been instrumental in building AI safety awareness and expertise across South Africa, with participants from diverse backgrounds and experience levels."""
+        
+        create_side_by_side_layout(
+            text_content, 
+            course.get("image_description", "AI Safety Fundamentals Course participants"), 
+            course.get("image_url")
+        )
         
         # Display research projects if available
         if "research_projects" in course:

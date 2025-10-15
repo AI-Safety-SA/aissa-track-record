@@ -267,6 +267,48 @@ section[data-testid="stSidebar"]
   background-color: #f0f6fb;
 }
 
+/* Square image placeholder for column layout */
+.image-placeholder-square {
+  background-color: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  color: #6c757d;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.image-placeholder-square:hover {
+  border-color: var(--color-light-blue);
+  background-color: #f0f6fb;
+}
+
+/* Ensure images in columns maintain square aspect ratio */
+.stImage img {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stImage img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Column-specific image styling */
+div[data-testid="column"] .stImage img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
 /* Sidebar styling (light, egg white) */
 .sidebar .sidebar-content {
   background: var(--color-eggwhite);
@@ -356,7 +398,7 @@ section[data-testid="stSidebar"]
   font-style: italic;
 }
 
-/* Responsive image layout */
+/* Legacy responsive image layout - kept for backward compatibility */
 .responsive-image-container {
   display: flex;
   gap: 1.5rem;
@@ -371,30 +413,6 @@ section[data-testid="stSidebar"]
 .responsive-image-side {
   flex: 0 0 200px; /* Fixed width for square images */
   min-width: 0;
-}
-
-/* Square image styling for side images */
-.responsive-image-side img {
-  width: 200px !important;
-  height: 200px !important;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.responsive-image-side img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* Image caption styling for side images */
-.responsive-image-side .stImage > div > div {
-  text-align: center;
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #6c757d;
-  font-style: italic;
 }
 
 /* Responsive design */
