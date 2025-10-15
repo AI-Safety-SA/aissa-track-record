@@ -47,10 +47,10 @@ def create_image_placeholder(description, side="below", image_url=None):
     """Display actual images with descriptions"""
     if image_url and os.path.exists(image_url):
         if side == "below":
-            st.image(image_url, caption=description, width='stretch')
+            st.image(image_url, caption=description, width='content')
         else:
             # For side images, use responsive layout
-            st.image(image_url, caption=description, width='stretch')
+            st.image(image_url, caption=description, width='content')
     else:
         # Fallback to placeholder if image doesn't exist
         if side == "below":

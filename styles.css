@@ -147,10 +147,12 @@ section[data-testid="stSidebar"]
 } */
 
 .stButton > button {
-  background-color: var(--color-light-blue);
+  background-color: var(--color-eggwhite);
   color: #ffffff;
-  border: none;
+  border: #000000;
+  border-width: 2px;
   border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px #000000;
   padding: 0.5rem 1rem;
   font-weight: bold;
 }
@@ -161,11 +163,12 @@ section[data-testid="stSidebar"]
 
 /* Total Impact Banner */
 .total-impact-banner {
-  background: linear-gradient(
+  background: var(--color-light-blue);
+  /* linear-gradient(
     135deg,
     var(--color-light-blue) 0%,
     var(--color-olive) 100%
-  );
+  ); */
   color: #ffffff;
   padding: 2rem;
   border-radius: 15px;
@@ -309,6 +312,7 @@ section[data-testid="stSidebar"]
 /* Chart container styling */
 .chart-container {
   background: #ffffff;
+  overflow: hidden;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
