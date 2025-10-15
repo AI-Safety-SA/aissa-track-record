@@ -451,16 +451,28 @@ def display_2025_events():
         st.markdown('<div class="subsection-header">Talks</div>', unsafe_allow_html=True)
         for talk in events["talks"]:
             st.markdown(f"**{talk['title']}**")
-            st.markdown(f"Hosted {talk['speaker']} - {talk['attendees']}")
-            create_image_placeholder(talk.get("image_description", ""), "below", talk.get("image_url"))
+            
+            text_content = f"Hosted {talk['speaker']} - {talk['attendees']}"
+            
+            create_side_by_side_layout(
+                text_content, 
+                talk.get("image_description", ""), 
+                talk.get("image_url")
+            )
     
     # Display notable meetups
     if "notable_meetups" in events:
         st.markdown('<div class="subsection-header">Notable Meetups</div>', unsafe_allow_html=True)
         for meetup in events["notable_meetups"]:
             st.markdown(f"**{meetup['title']}**")
-            st.markdown(f"{meetup['description']} - {meetup['attendees']}")
-            create_image_placeholder(meetup.get("image_description", ""), "below", meetup.get("image_url"))
+            
+            text_content = f"{meetup['description']} - {meetup['attendees']}"
+            
+            create_side_by_side_layout(
+                text_content, 
+                meetup.get("image_description", ""), 
+                meetup.get("image_url")
+            )
 
 def display_2025_individual_impacts():
     # Highlighted Individual Impacts
@@ -474,9 +486,13 @@ def display_2025_individual_impacts():
     
     for impact in impacts:
         with st.expander(f"👤 {impact['name']} - {impact['role']}"):
-            for achievement in impact['achievements']:
-                st.markdown(f"• {achievement}")
-            create_image_placeholder(impact.get("image_description", f"Photo of {impact['name']}"), "below", impact.get("image_url"))
+            achievements_text = "\n".join([f"• {achievement}" for achievement in impact['achievements']])
+            
+            create_side_by_side_layout(
+                achievements_text, 
+                impact.get("image_description", f"Photo of {impact['name']}"), 
+                impact.get("image_url")
+            )
 
 def display_2025_research():
     # Research Section
@@ -556,14 +572,17 @@ def display_2024_coworking():
     
     coworking = data.get("coworking_space", {})
     
-    st.markdown(f"""
-    Established co-working space at {coworking.get('location', 'Innovation City')} in {coworking.get('established', 'October 2024')}
-    - Capacity: {coworking.get('capacity', 'Up to 6 community members')}
-    - {coworking.get('regular_bookings', 'Regular Wednesday afternoon bookings (fully booked before reading groups)')}
-    - {coworking.get('access', 'Access to media channels for public communication')}
-    - {coworking.get('event_spaces', 'Large event spaces for talks, workshops, and reading groups')}
-    """)
-    create_image_placeholder(coworking.get("image_description", "Innovation City co-working space"), "below", coworking.get("image_url"))
+    text_content = f"""Established co-working space at {coworking.get('location', 'Innovation City')} in {coworking.get('established', 'October 2024')}
+- Capacity: {coworking.get('capacity', 'Up to 6 community members')}
+- {coworking.get('regular_bookings', 'Regular Wednesday afternoon bookings (fully booked before reading groups)')}
+- {coworking.get('access', 'Access to media channels for public communication')}
+- {coworking.get('event_spaces', 'Large event spaces for talks, workshops, and reading groups')}"""
+    
+    create_side_by_side_layout(
+        text_content, 
+        coworking.get("image_description", "Innovation City co-working space"), 
+        coworking.get("image_url")
+    )
 
 def display_2024_website():
     # Website
@@ -575,9 +594,15 @@ def display_2024_website():
     
     website = data.get("website", {})
     
-    st.markdown(website.get("description", "Built website to house newsletter and enable greater outreach and credibility"))
-    st.markdown(f"**Website:** [{website.get('url', 'www.aisafetyct.com')}](http://{website.get('url', 'www.aisafetyct.com')})")
-    create_image_placeholder(website.get("image_description", "AISSA website homepage"), "below", website.get("image_url"))
+    text_content = f"""{website.get("description", "Built website to house newsletter and enable greater outreach and credibility")}
+
+**Website:** [{website.get('url', 'www.aisafetyct.com')}](http://{website.get('url', 'www.aisafetyct.com')})"""
+    
+    create_side_by_side_layout(
+        text_content, 
+        website.get("image_description", "AISSA website homepage"), 
+        website.get("image_url")
+    )
 
 def display_2024_newsletter():
     # Newsletter
@@ -589,12 +614,15 @@ def display_2024_newsletter():
     
     newsletter = data.get("newsletter", {})
     
-    st.markdown(f"""
-    - Published {newsletter.get('articles_published', 3)} articles at {newsletter.get('timing', 'end of 2024')}
-    - Mailing list: {newsletter.get('mailing_list_size', '~60 people')}
-    - {newsletter.get('platform', 'Moved to Substack for better metrics and feedback tracking')}
-    """)
-    create_image_placeholder(newsletter.get("image_description", "Newsletter articles"), "below", newsletter.get("image_url"))
+    text_content = f"""- Published {newsletter.get('articles_published', 3)} articles at {newsletter.get('timing', 'end of 2024')}
+- Mailing list: {newsletter.get('mailing_list_size', '~60 people')}
+- {newsletter.get('platform', 'Moved to Substack for better metrics and feedback tracking')}"""
+    
+    create_side_by_side_layout(
+        text_content, 
+        newsletter.get("image_description", "Newsletter articles"), 
+        newsletter.get("image_url")
+    )
 
 def display_2024_courses():
     # Courses
@@ -641,7 +669,6 @@ def display_2024_courses():
                 st.markdown(f'<div class="metric-card"><h4>Governance Track</h4><h2>{completion["governance_completed"]}</h2><p>Completed</p></div>', unsafe_allow_html=True)
         
         # Display charts
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         st.markdown("### 📊 Course Analytics")
         
         col1, col2 = st.columns(2)
@@ -655,7 +682,6 @@ def display_2024_courses():
             completion_fig = create_course_completion_chart()
             st.plotly_chart(completion_fig, use_container_width=True)
         
-        st.markdown('</div>', unsafe_allow_html=True)
         
         # Display image with side-by-side layout
         text_content = """### Course Impact
@@ -694,72 +720,95 @@ def display_2024_events():
         for workshop in events["workshops"]:
             st.markdown(f'<div class="subsection-header">{workshop["title"]}</div>', unsafe_allow_html=True)
             
-            if "duration" in workshop:
-                st.markdown(f"**Duration:** {workshop['duration']}")
-            
-            if "type" in workshop:
-                st.markdown(f"**Type:** {workshop['type']}")
+            # Build comprehensive text content
+            text_content = f"""**Duration:** {workshop.get('duration', 'N/A')}
+**Type:** {workshop.get('type', 'N/A')}
+**Attendees:** {workshop.get('attendees', 'N/A')}
+**Participants:** {workshop.get('participants', 'N/A')}"""
             
             if "panelists" in workshop:
                 panelists_list = "\n".join([f"- {panelist}" for panelist in workshop["panelists"]])
-                st.markdown(f"""**Panelists:**
+                text_content += f"""
 
-{panelists_list}""")
+**Panelists:**
+{panelists_list}"""
             
             if "components" in workshop:
                 components_list = "\n".join([f"- {component}" for component in workshop["components"]])
-                st.markdown(f"""**Components:**
+                text_content += f"""
 
-{components_list}""")
-            
-            if "attendees" in workshop:
-                st.markdown(f"**Attendees:** {workshop['attendees']}")
-            
-            if "participants" in workshop:
-                st.markdown(f"**Participants:** {workshop['participants']}")
+**Components:**
+{components_list}"""
             
             if "description" in workshop:
-                st.markdown(workshop["description"])
+                text_content += f"""
+
+{workshop['description']}"""
             
             if "feedback" in workshop:
                 feedback = workshop["feedback"]
-                st.markdown(f"**Rating:** {feedback.get('rating', '')} average ({feedback.get('responses', '')} responses)")
+                text_content += f"""
+
+**Rating:** {feedback.get('rating', 'N/A')} average ({feedback.get('responses', 'N/A')} responses)"""
                 if "notes" in feedback:
-                    st.markdown(f"**Notes:** {feedback['notes']}")
+                    text_content += f"""
+**Notes:** {feedback['notes']}"""
             
             if "quote" in workshop:
-                st.markdown(f"**Quote:** {workshop['quote']}")
+                text_content += f"""
+
+**Quote:** {workshop['quote']}"""
             
-            create_image_placeholder(workshop.get("image_description", ""), "below", workshop.get("image_url"))
+            create_side_by_side_layout(
+                text_content, 
+                workshop.get("image_description", ""), 
+                workshop.get("image_url")
+            )
     
     # Display meetups
     if "meetups" in events:
         meetups = events["meetups"]
         st.markdown('<div class="subsection-header">Meetups</div>', unsafe_allow_html=True)
-        st.markdown(meetups.get("description", "Casual meetups with meals and guided discussions"))
-        create_image_placeholder(meetups.get("image_description", "AI Safety meetup dinner"), "below", meetups.get("image_url"))
+        
+        text_content = meetups.get("description", "Casual meetups with meals and guided discussions")
+        
+        create_side_by_side_layout(
+            text_content, 
+            meetups.get("image_description", "AI Safety meetup dinner"), 
+            meetups.get("image_url")
+        )
     
     # Display reading groups
     if "reading_groups" in events:
         reading_groups = events["reading_groups"]
         st.markdown('<div class="subsection-header">Reading Groups</div>', unsafe_allow_html=True)
-        st.markdown(reading_groups.get("schedule", "Weekly reading groups on Wednesdays"))
-        create_image_placeholder(reading_groups.get("image_description", "Reading group session"), "below", reading_groups.get("image_url"))
+        
+        text_content = reading_groups.get("schedule", "Weekly reading groups on Wednesdays")
+        
+        create_side_by_side_layout(
+            text_content, 
+            reading_groups.get("image_description", "Reading group session"), 
+            reading_groups.get("image_url")
+        )
     
     # Display retreat
     if "retreat" in events:
         retreat = events["retreat"]
         st.markdown('<div class="subsection-header">Retreat</div>', unsafe_allow_html=True)
-        st.markdown(f"""
-        **Partnership:** {retreat.get('partnership', 'Condor Initiative')}
         
-        **Duration:** {retreat.get('duration', '9 days')}
+        text_content = f"""**Partnership:** {retreat.get('partnership', 'Condor Initiative')}
+
+**Duration:** {retreat.get('duration', '9 days')}
+
+**Participants:** {retreat.get('participants', '24 top South African AI safety talent, ML professors, international AI Safety experts')}
+
+**Outcome:** {retreat.get('outcome', 'Interest in forming AI Safety postdoc positions at UCT AI Institute and Wits MIND Institute')}"""
         
-        **Participants:** {retreat.get('participants', '24 top South African AI safety talent, ML professors, international AI Safety experts')}
-        
-        **Outcome:** {retreat.get('outcome', 'Interest in forming AI Safety postdoc positions at UCT AI Institute and Wits MIND Institute')}
-        """)
-        create_image_placeholder(retreat.get("image_description", "Condor Camp retreat group photo"), "below", retreat.get("image_url"))
+        create_side_by_side_layout(
+            text_content, 
+            retreat.get("image_description", "Condor Camp retreat group photo"), 
+            retreat.get("image_url")
+        )
 
 def display_2023_content(section="overview"):
     st.markdown('<div class="year-header">2023</div>', unsafe_allow_html=True)
@@ -794,29 +843,38 @@ def display_2023_event(event):
     """Display a single 2023 event"""
     st.markdown(f'<div class="section-header">{event["title"]}</div>', unsafe_allow_html=True)
     
+    # Build comprehensive text content
+    text_content = ""
+    
     if "duration" in event:
-        st.markdown(f"**Duration:** {event['duration']}")
+        text_content += f"**Duration:** {event['duration']}\n\n"
     
     if "content" in event:
-        st.markdown(f"**Content:** {event['content']}")
+        text_content += f"**Content:** {event['content']}\n\n"
     
     if "format" in event:
-        st.markdown(f"**Format:** {event['format']}")
+        text_content += f"**Format:** {event['format']}\n\n"
     
     if "presenters" in event:
         presenters_list = " and ".join(event["presenters"])
-        st.markdown(f"**Presenters:** {presenters_list}")
+        text_content += f"**Presenters:** {presenters_list}\n\n"
     
     if "presentations" in event:
         presentations_list = "\n".join([f"- {pres['title']} ({pres['presenter']})" for pres in event["presentations"]])
-        st.markdown(f"""**Presentations:**
+        text_content += f"""**Presentations:**
 
-{presentations_list}""")
+{presentations_list}
+
+"""
     
     if "participants" in event:
-        st.markdown(f"**Participants:** {event['participants']}")
+        text_content += f"**Participants:** {event['participants']}"
     
-    create_image_placeholder(event.get("image_description", ""), "below", event.get("image_url"))
+    create_side_by_side_layout(
+        text_content, 
+        event.get("image_description", ""), 
+        event.get("image_url")
+    )
 
 def display_total_impact_banner():
     """Display total impact metrics banner at the top of all pages"""
