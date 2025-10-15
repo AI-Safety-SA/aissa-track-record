@@ -450,3 +450,68 @@ div[data-testid="column"] .stImage img {
     display: block;
   }
 }
+
+/* Dashboard Styles */
+.dashboard-container {
+  margin: 2rem 0;
+}
+
+.year-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-light-blue) 0%,
+    var(--color-olive) 100%
+  );
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 0.5rem;
+}
+
+.year-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.year-card h3 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.section-link {
+  background: var(--color-eggwhite);
+  border: 2px solid var(--color-light-blue);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.5rem;
+}
+
+.section-link:hover {
+  background: var(--color-light-blue);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Dashboard responsive design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin: 1rem 0;
+  }
+
+  .year-card {
+    padding: 1.5rem;
+    margin: 0.25rem;
+  }
+
+  .year-card h3 {
+    font-size: 1.5rem;
+  }
+}

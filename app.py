@@ -103,7 +103,8 @@ def create_demographics_chart():
     fig.update_layout(
         font=dict(size=12),
         showlegend=True,
-        height=400
+        height=400,
+        template='plotly_white'
     )
     
     return fig
@@ -919,24 +920,97 @@ def display_total_impact_banner():
         metrics["total_individual_impacts"]
     ), unsafe_allow_html=True)
 
+def display_dashboard():
+    """Display the main dashboard with metrics, charts, and navigation"""
+    st.markdown('<div class="dashboard-container">', unsafe_allow_html=True)
+    
+    # Row 1: Impact metrics and growth chart (2 columns)
+    col1, col2 = st.columns(2)
+    with col1:
+        display_total_impact_banner()
+    with col2:
+        st.markdown("### 📈 Participant Growth Over Time")
+        growth_fig = create_participant_growth_chart()
+        st.plotly_chart(growth_fig, use_container_width=True)
+    
+    # Row 2: Quick navigation
+    st.markdown("### 🗓️ Explore by Year")
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if st.button("2025", key="dash_2025", use_container_width=True):
+            st.session_state.selected_year = "2025"
+            st.session_state.selected_section = "overview"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    with col2:
+        if st.button("2024", key="dash_2024", use_container_width=True):
+            st.session_state.selected_year = "2024"
+            st.session_state.selected_section = "overview"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    with col3:
+        if st.button("2023", key="dash_2023", use_container_width=True):
+            st.session_state.selected_year = "2023"
+            st.session_state.selected_section = "overview"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    # Row 3: Popular sections
+    st.markdown("### 🔗 Popular Sections")
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        if st.button("📚 All Courses", key="dash_courses"):
+            st.session_state.selected_year = "2025"
+            st.session_state.selected_section = "courses"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    with col2:
+        if st.button("🎯 All Events", key="dash_events"):
+            st.session_state.selected_year = "2025"
+            st.session_state.selected_section = "events"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    with col3:
+        if st.button("🔬 Research", key="dash_research"):
+            st.session_state.selected_year = "2025"
+            st.session_state.selected_section = "research"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    with col4:
+        if st.button("🌟 Impacts", key="dash_impacts"):
+            st.session_state.selected_year = "2025"
+            st.session_state.selected_section = "impacts"
+            st.session_state.show_dashboard = False
+            st.rerun()
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
 def main():
     # Header
     st.markdown('<div class="main-header">AISSA Track Record</div>', unsafe_allow_html=True)
     st.markdown("### AI Safety South Africa - Our Journey and Impact")
     
-    # Display total impact banner
-    col_left, col_right = st.columns(2)
-    with col_left:
-        display_total_impact_banner()
-    with col_right:
-        st.markdown("### 📈 Participant Growth Over Time")
-        growth_fig = create_participant_growth_chart()
-        st.plotly_chart(growth_fig, use_container_width=True)
-    
     # Sidebar navigation
     st.sidebar.title("📋 Navigation")
     
+    if st.sidebar.button("🏠 Home Dashboard", key="home_dashboard"):
+        st.session_state.show_dashboard = True
+        st.session_state.selected_year = None
+        st.session_state.selected_section = None
+        st.rerun()
+    
+    st.sidebar.markdown("---")
+    
     # Initialize session state
+    if "show_dashboard" not in st.session_state:
+        st.session_state.show_dashboard = True
     if "selected_year" not in st.session_state:
         st.session_state.selected_year = "2025"
     if "selected_section" not in st.session_state:
@@ -950,68 +1024,88 @@ def main():
         if st.button("📊 Overview", key="2025_overview"):
             st.session_state.selected_year = "2025"
             st.session_state.selected_section = "overview"
+            st.session_state.show_dashboard = False
         if st.button("📚 Courses", key="2025_courses"):
             st.session_state.selected_year = "2025"
             st.session_state.selected_section = "courses"
+            st.session_state.show_dashboard = False
         if st.button("🏫 University Groups", key="2025_university"):
             st.session_state.selected_year = "2025"
             st.session_state.selected_section = "university"
+            st.session_state.show_dashboard = False
         if st.button("🎯 Events", key="2025_events"):
             st.session_state.selected_year = "2025"
             st.session_state.selected_section = "events"
+            st.session_state.show_dashboard = False
         if st.button("🌟 Individual Impacts", key="2025_impacts"):
             st.session_state.selected_year = "2025"
             st.session_state.selected_section = "impacts"
+            st.session_state.show_dashboard = False
         if st.button("🔬 Research", key="2025_research"):
             st.session_state.selected_year = "2025"
             st.session_state.selected_section = "research"
+            st.session_state.show_dashboard = False
     
     # 2024 Section
     with st.sidebar.expander("📅 2024", expanded=(st.session_state.selected_year == "2024")):
         if st.button("📊 Overview", key="2024_overview"):
             st.session_state.selected_year = "2024"
             st.session_state.selected_section = "overview"
+            st.session_state.show_dashboard = False
         if st.button("🏢 Co-working Space", key="2024_coworking"):
             st.session_state.selected_year = "2024"
             st.session_state.selected_section = "coworking"
+            st.session_state.show_dashboard = False
         if st.button("🌐 Website", key="2024_website"):
             st.session_state.selected_year = "2024"
             st.session_state.selected_section = "website"
+            st.session_state.show_dashboard = False
         if st.button("📰 Newsletter", key="2024_newsletter"):
             st.session_state.selected_year = "2024"
             st.session_state.selected_section = "newsletter"
+            st.session_state.show_dashboard = False
         if st.button("📚 Courses", key="2024_courses"):
             st.session_state.selected_year = "2024"
             st.session_state.selected_section = "courses"
+            st.session_state.show_dashboard = False
         if st.button("🎯 Events", key="2024_events"):
             st.session_state.selected_year = "2024"
             st.session_state.selected_section = "events"
+            st.session_state.show_dashboard = False
     
     # 2023 Section
     with st.sidebar.expander("📅 2023", expanded=(st.session_state.selected_year == "2023")):
         if st.button("📊 Overview", key="2023_overview"):
             st.session_state.selected_year = "2023"
             st.session_state.selected_section = "overview"
+            st.session_state.show_dashboard = False
         if st.button("🎓 SACAIR Tutorial", key="2023_sacair"):
             st.session_state.selected_year = "2023"
             st.session_state.selected_section = "sacair"
+            st.session_state.show_dashboard = False
         if st.button("🎯 IndabaXS", key="2023_indabaxs"):
             st.session_state.selected_year = "2023"
             st.session_state.selected_section = "indabaxs"
+            st.session_state.show_dashboard = False
         if st.button("🎓 Deep Learning IndabaX", key="2023_dl_indabax"):
             st.session_state.selected_year = "2023"
             st.session_state.selected_section = "dl_indabax"
+            st.session_state.show_dashboard = False
     
     selected_year = st.session_state.selected_year
     selected_section = st.session_state.selected_section
     
-    # Display content based on selection
-    if selected_year == "2025":
-        display_2025_content(selected_section)
-    elif selected_year == "2024":
-        display_2024_content(selected_section)
-    elif selected_year == "2023":
-        display_2023_content(selected_section)
+    # Show dashboard or content based on state
+    if st.session_state.show_dashboard:
+        display_dashboard()
+    else:
+        # Display content based on selection
+        if selected_year == "2025":
+            display_2025_content(selected_section)
+        elif selected_year == "2024":
+            display_2024_content(selected_section)
+        elif selected_year == "2023":
+            display_2023_content(selected_section)
     
     # Force rerun when year or section is selected
     if (st.session_state.get("selected_year") != selected_year or 
